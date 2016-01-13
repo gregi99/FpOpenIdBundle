@@ -1,14 +1,15 @@
 <?php
+
 namespace Fp\OpenIdBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\DependencyInjection\ContainerAware;
 
-class SecurityController extends ContainerAware
+class SecurityController extends Controller
 {
     public function loginAction()
     {
-        $request = $this->container->get('request');
+        $request = $this->get('request_stack');
         /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();
         /* @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface */
@@ -28,7 +29,7 @@ class SecurityController extends ContainerAware
             $error = $error->getMessage();
         }
 
-        return $this->container->get('templating')->renderResponse(
+        return $this->render(
             'FpOpenIdBundle:Security:login.html.'.$this->container->getParameter('fp_openid.template.engine'),
             array('error' => $error)
         );
