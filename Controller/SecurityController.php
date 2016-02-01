@@ -9,7 +9,7 @@ class SecurityController extends Controller
 {
     public function loginAction()
     {
-        $request = $this->get('request_stack');
+        $request = $this->get('request_stack')->getMasterRequest();
         /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();
         /* @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface */
